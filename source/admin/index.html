@@ -8,21 +8,35 @@
 <body>
   <div id="nc-root"></div>
 
-  <!-- 加载 Identity 脚本 -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- 加载 CMS 脚本 -->
-  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
-
+  <!-- 先加载 Identity 脚本，并监听它的加载完成事件 -->
   <script>
-    // 监听 Identity 初始化完成事件
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          // 只在未登录时调用 login()，不再手动 init()
-          window.netlifyIdentity.login();
-        }
-      });
+    function initNetlifyIdentity() {
+      const identityScript = document.createElement('script');
+      identityScript.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+      identityScript.onload = function() {
+        // Identity 脚本加载完成后，再加载 CMS 脚本
+        const cmsScript = document.createElement('script');
+        cmsScript.src = 'https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js';
+        cmsScript.onload = function() {
+          // CMS 加载完成后，再监听 init 事件
+          if (window.netlifyIdentity) {
+            window.netlifyIdentity.on('init', function(user) {
+              if (!user) {
+                // 确保 login() 只在 Identity 完全就绪后调用
+                setTimeout(() => {
+                  window.netlifyIdentity.login();
+                }, 100);
+              }
+            });
+          }
+        };
+        document.body.appendChild(cmsScript);
+      };
+      document.body.appendChild(identityScript);
     }
+
+    // 页面加载完成后，开始初始化流程
+    document.addEventListener('DOMContentLoaded', initNetlifyIdentity);
   </script>
 </body>
 </html>
