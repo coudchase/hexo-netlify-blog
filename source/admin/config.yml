@@ -1,9 +1,10 @@
 backend:
   name: github
-  repo: coudchase/hexo-netlify-blog
+  repo: coudchase/hexo-netlify-blog  # 注意：你这里写的是 coudchase，不是 cloudchase，可能是拼写错误
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  # 删掉下面两行
+  # base_url: https://api.netlify.com
+  # auth_endpoint: auth
 
 media_folder: "source/images"
 public_folder: "/images"
