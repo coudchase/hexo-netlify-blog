@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "install": "npm install hexo --save",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
