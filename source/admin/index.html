@@ -8,25 +8,21 @@
 <body>
   <div id="nc-root"></div>
 
-  <!-- 先加载 Identity 脚本 -->
+  <!-- 加载 Identity 脚本 -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- 加载 CMS 脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function(user) {
-          if (!user) {
-            // 延迟加载 CMS 脚本，确保 Identity 已就绪
-            setTimeout(() => {
-              const cmsScript = document.createElement('script');
-              cmsScript.src = 'https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js';
-              document.body.appendChild(cmsScript);
-            }, 100);
-          }
-        });
-        window.netlifyIdentity.init();
-      }
-    });
+    // 监听 Identity 初始化完成事件
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          // 只在未登录时调用 login()，不再手动 init()
+          window.netlifyIdentity.login();
+        }
+      });
+    }
   </script>
 </body>
 </html>
