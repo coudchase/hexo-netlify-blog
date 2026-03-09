@@ -56,7 +56,7 @@ social:
 favicon: /img/favicon.png
 
 avatar:
-  img: /img/butterfly-icon.png
+  img: /img/白发emo.png
   effect: false
 
 # Disable all banner images
@@ -289,10 +289,10 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/coudchase
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 欢迎来到我自己的小世界,我也不知道说点什么,随意吧
   card_recent_post:
     enable: true
     # If set 0 will show all

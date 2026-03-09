@@ -1,0 +1,40 @@
+/* 全局背景图 - 只作用于页面最底层 */
+html {
+  background: url('/img/one.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
+  background-color: transparent !important;
+  height: 100%;
+}
+
+/* 重置body默认背景，只让顶部透出背景图 */
+body {
+  background: transparent !important;
+  height: 100%;
+  position: relative;
+}
+
+/* 顶部标题栏透明，浮在背景图上 */
+#page-header {
+  background: transparent !important;
+  backdrop-filter: blur(8px) !important; /* 可选：毛玻璃效果，让文字更清晰 */
+  border: none !important;
+}
+
+/* 核心：恢复下方内容区域的原有样式（白色背景+正常布局） */
+#body-wrap {
+  background: #fff !important; /* 恢复默认白色背景 */
+  border-radius: 8px !important; /* 保留原有的圆角 */
+  margin: 20px auto !important; /* 保留原有的居中边距 */
+  padding: 20px !important; /* 保留原有的内边距 */
+  max-width: 1200px !important; /* 保留原有的宽度限制 */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1) !important; /* 保留原有的阴影 */
+  position: relative !important;
+  z-index: 1 !important; /* 确保内容区域在背景图上方 */
+}
+
+/* 可选：如果顶部文字颜色和背景图冲突，调整文字颜色 */
+#page-header .site-title a,
+#page-header .site-subtitle {
+  color: #fff !important; /* 顶部文字改为白色，更醒目 */
+  text-shadow: 0 0 5px rgba(0,0,0,0.5) !important; /* 加文字阴影，提升可读性 */
+}

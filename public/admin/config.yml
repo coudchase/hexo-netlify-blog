@@ -1,13 +1,13 @@
+# 后端配置（Git Gateway）
 backend:
-  name: github
-  repo: coudchase/hexo-netlify-blog # 替换成你的 GitHub 仓库地址
-  branch: main # 或者 main，根据你的主分支名
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  name: git-gateway
+  branch: main
 
-media_folder: "source/images" # 图片上传后存放的文件夹
+# 媒体文件存储配置（和 backend 同级）
+media_folder: "source/images"
 public_folder: "/images"
 
+# 内容集合配置（和 backend 同级）
 collections:
   - name: "posts"
     label: "文章"
