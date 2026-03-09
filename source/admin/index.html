@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-  <!-- 添加这行脚本 -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
-</head>
-<body>
-  <script>
-    CMS.init()
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
+  </head>
+  <body>
+    <!-- 包含一个包含id="nc-root"的div，避免appendChild报错 -->
+    <div id="nc-root"></div>
+    <script>
+      // 等待CMS脚本完全加载后再初始化
+      window.CMS_CONFIG = {
+        "backend": {
+          "name": "github",
+          "repo": "coudchase/hexo-netlify-blog",
+          "branch": "main",
+          "base_url": "https://api.netlify.com",
+          "auth_endpoint": "auth"
+        },
+        "media_folder": "source/images",
+        "public_folder": "/images",
+        "collections": [
+          {
+            "name": "posts",
+            "label": "文章",
+            "folder": "source/_posts",
+            "create": true,
+            "slug": "{{slug}}",
+            "fields": [
+              { "label": "标题", "name": "title", "widget": "string" },
+              { "label": "发布日期", "name": "date", "widget": "datetime" },
+              { "label": "正文", "name": "body", "widget": "markdown" }
+            ]
+          }
+        ]
+      };
+
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+            window.netlifyIdentity.login();
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
