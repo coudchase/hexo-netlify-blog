@@ -6,28 +6,20 @@
   <title>Content Manager</title>
 </head>
 <body>
-  <!-- 必须包含这个 div，作为 CMS 的挂载点 -->
   <div id="nc-root"></div>
 
-  <!-- 先加载 Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- 再加载 CMS -->
   <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
 
   <script>
-    // 等待页面完全加载后再初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function(user) {
-          if (!user) {
-            window.netlifyIdentity.on('login', function() {
-              window.location.href = '/admin/';
-            });
-          }
-        });
-      }
-      // CMS 会自动查找并加载 /admin/config.yml
-    });
+    if (window.netlifyIdentity) {
+      // 页面加载后，直接弹出 Netlify Identity 登录框
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.login();
+        }
+      });
+    }
   </script>
 </body>
 </html>
