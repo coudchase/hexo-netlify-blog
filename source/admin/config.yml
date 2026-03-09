@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: coudchase/hexo-netlify-blog
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+media_folder: "source/images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "文章"
+    folder: "source/_posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "正文", name: "body", widget: "markdown"}
